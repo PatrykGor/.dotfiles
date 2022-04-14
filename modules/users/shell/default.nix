@@ -23,7 +23,7 @@ with lib;
       autocd = true;
       defaultKeymap = "viins";
       shellAliases = {
-        yay = "sudo nixos-rebuild switch --upgrade";
+        yay = "upflake";
         md = "mkdir -p";
         reload = "sudo systemctl restart display-manager.service";
         ls = "exa --icons -a --group-directories-first";
