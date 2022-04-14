@@ -2,10 +2,10 @@
 with lib;
 
 let
-  hardwareCfg = config.machineData.hardware;
+  hardwareCfg = config.patryk.hardware;
 in
 {
-  options.machineData.hardware = {
+  options.patryk.hardware = {
     drive = mkOption {
       description = "System drive data";
       type = types.attrs;
@@ -13,6 +13,11 @@ in
     backlight = mkOption {
       description = "Name of backlight device";
       type = types.str;
+    };
+
+    power = mkOption {
+      description = "Data about the battery and it's charger";
+      type = types.attrs;
     };
   };
 
@@ -28,7 +33,7 @@ in
     ];
 
     # Install user packages to /etc/profiles
-    home-manager.useUserPackages = true;
+    /* home-manager.useUserPackages = true; */
 
     boot.initrd.luks.devices.lvmroot.device = "/dev/disk/by-uuid/${hardwareCfg.drive.uuid}";
     swapDevices = [{ device = "/swapfile"; size = 10000; }];

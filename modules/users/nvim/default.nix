@@ -5,7 +5,7 @@ with lib;
   config = {
     programs.neovim = {
       enable = true;
-      package = pkgs.neovim-nightly;
+      # package = pkgs.neovim-nightly;
       viAlias = true;
       vimAlias = true;
       vimdiffAlias = true;
@@ -15,17 +15,17 @@ with lib;
       # read in the vim config from filesystem
       # this enables syntaxhighlighting when editing those
       extraConfig = ''
-        source ${./vim/base.vim}
-        source ${./vim/plugins.vim}
-        source ${./vim/lsp.vim}
+        source ${./base.vim}
+        source ${./plugins.vim}
+        source ${./lsp.vim}
 
         " ------ TEMPLATES ------{{{
         augroup templates
             " html
-            autocmd BufNewFile *.html 0r ${./vim/templates/skeleton.html}
-            autocmd BufNewFile *.htm 0r ${./vim/templates/skeleton.html}
+            autocmd BufNewFile *.html 0r ${./templates/skeleton.html}
+            autocmd BufNewFile *.htm 0r ${./templates/skeleton.html}
             " nix
-            autocmd BufNewFile *.nix 0r ${./vim/templates/skeleton.nix}
+            autocmd BufNewFile *.nix 0r ${./templates/skeleton.nix}
         augroup END
         "}}}
       '';

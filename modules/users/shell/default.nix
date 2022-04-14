@@ -40,7 +40,7 @@ with lib;
         work = "$HOME/Projects/work";
         school = "$HOME/Projects/school";
         dl = "$HOME/Downloads";
-        conf = "/etc/nixos";
+        conf = "$HOME/.dotfiles";
       };
       history.path = "${config.xdg.dataHome}/history";
       dotDir = ".config/zsh";

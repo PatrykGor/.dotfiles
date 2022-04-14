@@ -6,7 +6,7 @@ let
 in
 {
   options.patryk.email = {
-    private = mkOption {
+    personal = mkOption {
       description = "Private mailbox address";
       type = types.str;
     };
@@ -15,13 +15,15 @@ in
       type = types.str;
     };
   };
+  config = {
   accounts.email.accounts = {
     private = {
-      address = cfg.private;
+      address = cfg.personal;
       primary = true;
     };
     work = {
       address = cfg.work;
     };
+  };
   };
 }

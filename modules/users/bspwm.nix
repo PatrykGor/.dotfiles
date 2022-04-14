@@ -4,7 +4,7 @@ with lib;
 let
   colorCfg = config.patryk.colors;
   barCfg = config.patryk.bar;
-  monitorCfg = conifg.patryk.monitors;
+  monitorCfg = config.patryk.monitors;
 in
 {
   options.patryk.monitors = {

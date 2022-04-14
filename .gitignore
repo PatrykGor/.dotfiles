@@ -1,2 +1,3 @@
 tags
-flake.lock
+*.lock
+result

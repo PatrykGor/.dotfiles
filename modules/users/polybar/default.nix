@@ -5,24 +5,17 @@ let
   scrollSpotify = pkgs.callPackage ./scroll_spotify_status.nix { };
   cfg = config.patryk.bar;
   colorCfg = config.patryk.colors;
-  hardwareCfg = config.machineData.hardware;
+  systemCfg = config.machineData.systemConfig;
 in
 {
   options.patryk.bar = {
-    height = {
+    height = mkOption {
       description = "Bar height in pixels";
-      type = types.float;
+      type = types.int;
     };
-    border = {
+    border = mkOption {
       description = "Bar border width in pixels";
-      type = types.float;
-    };
-  };
-
-  options.machineData.hardware = {
-    power = {
-      description = "Battery and adapter data";
-      type = types.attrs;
+      type = types.int;
     };
   };
 
@@ -68,8 +61,8 @@ in
         };
         "module/battery" = {
           type = "internal/battery";
-          battery = hardwareCfg.power.battery;
-          adapter = hardwareCfg.power.adapter;
+          battery = systemCfg.hardware.power.battery;
+          adapter = systemCfg.hardware.power.adapter;
           full.at = 99;
 
           format = {
@@ -107,7 +100,7 @@ in
         };
         "module/backlight" = {
           type = "internal/backlight";
-          card = hardwareCfg.backlight;
+          card = systemCfg.hardware.backlight;
           enable-scroll = true;
 
           format = "<ramp> <bar>";

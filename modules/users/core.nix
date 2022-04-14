@@ -18,6 +18,7 @@ with lib;
       wget
       rofi
       git
+      git-crypt
       zip
       mpv
       unzip

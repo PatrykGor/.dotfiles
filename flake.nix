@@ -32,19 +32,11 @@
     {
       homeManagerConfigurations = {
         patryk = user.mkHMUser {
+	  username = "patryk";
           userConfig = {
             # Abstracted user config
             # Import encrypted secrets
-            credentials = import ./secrets.nix;
-            remote = {
-              gorscy = {
-                user = "root";
-                address = "gorscy.net";
-                publicKey = ''
-                  ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDBTDrjarlfjwtS+61GnQ+qzFC6YjFK04eQL0whuyQJUgfekH7znONfieqcHlLbWDJ74KASHiVg//zbI3/nf9lQYvuJ41kG1LTuSjTkuwjnnBcTyeVM/5hEzq3NsYNVjsMA5jMMaKw50FJVhee250CmIqW0df34aGp21aAKk7OAOh+HOr700qx/c4V0q5DPjh4MNr4QqXiR+S01c8uHqCQuXJ2C47+y5FUk2vBOekenza6y0b0jveOzw/gymVF7pXDdb5lpY0s/YWcgtsFSTca5Eda2uINGZNth7v0wlvZcc9pLkkNUqdDQY8ZSVX5/iTO3A0MjMumKDQzpxK/+dEnH
-                '';
-              };
-            };
+            # credentials = import ./secrets.nix;
             monitors = {
               external = {
                 name = "DP-2";
@@ -124,6 +116,15 @@
                 adapter = "AC";
               };
               backlight = "intel_backlight";
+            };
+            remote = {
+              gorscy = {
+                user = "root";
+                address = "gorscy.net";
+                publicKey = ''
+                  ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDBTDrjarlfjwtS+61GnQ+qzFC6YjFK04eQL0whuyQJUgfekH7znONfieqcHlLbWDJ74KASHiVg//zbI3/nf9lQYvuJ41kG1LTuSjTkuwjnnBcTyeVM/5hEzq3NsYNVjsMA5jMMaKw50FJVhee250CmIqW0df34aGp21aAKk7OAOh+HOr700qx/c4V0q5DPjh4MNr4QqXiR+S01c8uHqCQuXJ2C47+y5FUk2vBOekenza6y0b0jveOzw/gymVF7pXDdb5lpY0s/YWcgtsFSTca5Eda2uINGZNth7v0wlvZcc9pLkkNUqdDQY8ZSVX5/iTO3A0MjMumKDQzpxK/+dEnH
+                '';
+              };
             };
           };
           fileSystems = {

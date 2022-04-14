@@ -10,6 +10,10 @@ in
       description = "Background color";
       type = types.str;
     };
+    primary = mkOption {
+      description = "Primary color (used for accents)";
+      type = types.str;
+    };
     fg = mkOption {
       description = "Foreground color";
       type = types.str;
@@ -28,6 +32,9 @@ in
     programs.alacritty = {
       enable = true;
       settings = {
+        window = {
+          opacity = 0.8;
+        };
         colors = {
           primary = {
             background = colorCfg.bg;
@@ -36,7 +43,6 @@ in
           normal = colorCfg.normal;
           bright = colorCfg.bright;
         };
-        background_opacity = 0.8;
       };
     };
   };

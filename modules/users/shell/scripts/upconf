@@ -1,0 +1,5 @@
+pushd ~/.dotfiles
+sudo nixos-rebuild switch --flake '.#' &&
+    nix build --impure .#homeManagerConfigurations.$USER.activationPackage &&
+    ./result/activate;
+popd
