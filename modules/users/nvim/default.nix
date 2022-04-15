@@ -24,6 +24,12 @@ with lib;
           lua << EOF
           ${strings.fileContents ./config.lua}
           ${strings.fileContents ./lsp.lua}
+
+          local pid = vim.fn.getpid()
+          local omnisharp_bin = "${pkgs.omnisharp-roslyn}/bin/omnisharp"
+          lspconfig['omnisharp'].setup{
+            cmd = { omnisharp_bin, "--languageserver" , "--hostPID", tostring(pid) };
+          }
           EOF
         ''
 
@@ -43,11 +49,6 @@ with lib;
         # additional file dependent lua
         ''
           lua << EOF
-            local pid = vim.fn.getpid()
-            local omnisharp_bin = "${pkgs.omnisharp-roslyn}/bin/omnisharp"
-            require'lspconfig'.omnisharp.setup{
-              cmd = { omnisharp_bin, "--languageserver" , "--hostPID", tostring(pid) };
-            }
           EOF
         ''
       ];
