@@ -28,15 +28,15 @@ with lib;
         ''
 
         # additional file dependent vimscript
-        "\" ------ TEMPLATES ------{{{
+        ''" ------ TEMPLATES ------{{{
         augroup templates
-            \" html
+            " html
             autocmd BufNewFile *.html 0r ${./templates/skeleton.html}
             autocmd BufNewFile *.htm 0r ${./templates/skeleton.html}
-            \" nix
+            " nix
             autocmd BufNewFile *.nix 0r ${./templates/skeleton.nix}
         augroup END
-        \"}}}"
+        "}}}''
       ];
 
       # install needed binaries here
