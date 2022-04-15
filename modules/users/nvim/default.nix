@@ -14,21 +14,30 @@ with lib;
 
       # read in the vim config from filesystem
       # this enables syntaxhighlighting when editing those
-      extraConfig = ''
-        source ${./base.vim}
-        source ${./plugins.vim}
-        source ${./lsp.vim}
+      extraConfig = builtins.concatStringsSep "\n" [
+        (strings.fileContents ./base.vim)
+        (strings.fileContents ./plugins.vim)
+        (strings.fileContents ./lsp.vim)
 
-        " ------ TEMPLATES ------{{{
+        # this allows you to add lua config files
+        ''
+          lua << EOF
+          ${strings.fileContents ./config.lua}
+          ${strings.fileContents ./lsp.lua}
+          EOF
+        ''
+
+        # additional file dependent vimscript
+        "\" ------ TEMPLATES ------{{{
         augroup templates
-            " html
+            \" html
             autocmd BufNewFile *.html 0r ${./templates/skeleton.html}
             autocmd BufNewFile *.htm 0r ${./templates/skeleton.html}
-            " nix
+            \" nix
             autocmd BufNewFile *.nix 0r ${./templates/skeleton.nix}
         augroup END
-        "}}}
-      '';
+        \"}}}"
+      ];
 
       # install needed binaries here
       extraPackages = with pkgs; [
