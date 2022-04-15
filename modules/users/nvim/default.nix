@@ -28,15 +28,28 @@ with lib;
         ''
 
         # additional file dependent vimscript
-        ''" ------ TEMPLATES ------{{{
-        augroup templates
-            " html
-            autocmd BufNewFile *.html 0r ${./templates/skeleton.html}
-            autocmd BufNewFile *.htm 0r ${./templates/skeleton.html}
-            " nix
-            autocmd BufNewFile *.nix 0r ${./templates/skeleton.nix}
-        augroup END
-        "}}}''
+        ''
+          " ------ TEMPLATES ------{{{
+          augroup templates
+              " html
+              autocmd BufNewFile *.html 0r ${./templates/skeleton.html}
+              autocmd BufNewFile *.htm 0r ${./templates/skeleton.html}
+              " nix
+              autocmd BufNewFile *.nix 0r ${./templates/skeleton.nix}
+          augroup END
+          "}}}
+        ''
+
+        # additional file dependent lua
+        ''
+          lua << EOF
+            local pid = vim.fn.getpid()
+            local omnisharp_bin = "${pkgs.omnisharp-roslyn}/bin/omnisharp"
+            require'lspconfig'.omnisharp.setup{
+              cmd = { omnisharp_bin, "--languageserver" , "--hostPID", tostring(pid) };
+            }
+          EOF
+        ''
       ];
 
       # install needed binaries here
@@ -45,6 +58,14 @@ with lib;
         # have a look on the link below to figure out the ones for your languages
         # https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md
         rnix-lsp
+        clang-tools
+        nodePackages.vscode-langservers-extracted
+        nodePackages.diagnostic-languageserver
+        nodePackages.intelephense
+        nodePackages.vim-language-server
+        python39Packages.jedi-language-server
+        sqls
+        omnisharp-roslyn
 
         #telescope
         fd
@@ -63,19 +84,19 @@ with lib;
         vimwiki-markdown
       ];
 
-      coc = {
-        enable = true;
-        settings = {
-          languageserver = {
-            nix = {
-              command = "rnix-lsp";
-              filetypes = [
-                "nix"
-              ];
-            };
-          };
-        };
-      };
+      /* coc = { */
+      /*   enable = true; */
+      /*   settings = { */
+      /*     languageserver = { */
+      /*       nix = { */
+      /*         command = "rnix-lsp"; */
+      /*         filetypes = [ */
+      /*           "nix" */
+      /*         ]; */
+      /*       }; */
+      /*     }; */
+      /*   }; */
+      /* }; */
 
       plugins = with pkgs.vimPlugins; [
         #theme:
@@ -98,25 +119,32 @@ with lib;
         lf-vim
         vim-floaterm
 
-        #school:
-        coc-nvim
-        coc-pyright
-        coc-clangd
+        #LSP:
+        nvim-lspconfig
+        nvim-cmp
+        cmp-nvim-lsp
+        cmp_luasnip
+        luasnip
 
-        #work:
-        coc-java
-        coc-tsserver
-        coc-html
-        coc-emmet
-        coc-css
-        coc-json
+        /* #school: */
+        /* coc-nvim */
+        /* coc-pyright */
+        /* coc-clangd */
 
-        #rest:
-        coc-vimlsp
+        /* #work: */
+        /* coc-java */
+        /* coc-tsserver */
+        /* coc-html */
+        /* coc-emmet */
+        /* coc-css */
+        /* coc-json */
 
-        #snippets
-        coc-snippets
-        vim-snippets
+        /* #rest: */
+        /* coc-vimlsp */
+
+        /* #snippets */
+        /* coc-snippets */
+        /* vim-snippets */
 
         #syntax highlighting
         (nvim-treesitter.withPlugins (plugins: pkgs.tree-sitter.allGrammars))
