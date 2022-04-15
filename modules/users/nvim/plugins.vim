@@ -24,7 +24,7 @@ let g:which_key_map.w = {
       \ 'H' : [':set nosplitright | vsplit'    , 'window-split-left']    ,
       \ 'J' : [':set splitbelow | split'  , 'window-split-below']   ,
       \ 'K' : [':set nosplitbelow | split'  , 'window-split-up']      ,
-      \ 'L' : [':set splitright | split'    , 'window-split-right']   ,
+      \ 'L' : [':set splitright | vsplit'    , 'window-split-right']   ,
       \ 'q' : ['<C-w>q'    , 'window-close']   ,
       \ 'i' : 'which_key_ignore'   ,
       \ 's' : 'which_key_ignore'   ,
