@@ -57,7 +57,7 @@ with lib;
         sqlite
 
         #treesitter compiler:
-        gcc
+        /* gcc */
 
         # vimwiki markdown converter:
         vimwiki-markdown
@@ -119,7 +119,7 @@ with lib;
         vim-snippets
 
         #syntax highlighting
-        nvim-treesitter
+        (nvim-treesitter.withPlugins (plugins: pkgs.tree-sitter.allGrammars))
 
         #direnv
         direnv-vim
