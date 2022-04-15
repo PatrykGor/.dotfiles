@@ -5,7 +5,6 @@ with lib;
   config = {
     services.picom = {
       enable = true;
-      /* package = pkgs.unstable.picom; */
 
       experimentalBackends = true;
       blur = true;
@@ -16,7 +15,7 @@ with lib;
         ''
           # corner-radius = 15;
 
-          # blur-method = "dual_kawase";
+          blur-method = "dual_kawase";
           blur-strength = 7;
         '';
     };
