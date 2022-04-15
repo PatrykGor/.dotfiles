@@ -207,6 +207,8 @@ let g:which_key_map.g = {
       \ 'name' : '+git' ,
       \ 's' : [':Git'     , 'git-status']             ,
       \ 'a' : [':Git add %'     , 'git-add']          ,
+      \ 'r' : [':Git rm %'     , 'git-remove']          ,
+      \ 'c' : [':Git commit'     , 'git-commit']          ,
       \ 'm' : [':Gvdiffsplit'     , 'git-merge']             ,
       \ }
 " }}}
