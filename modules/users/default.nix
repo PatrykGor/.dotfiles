@@ -3,6 +3,7 @@
 {
   imports = [
     ./core.nix
+    ./gpg.nix
     ./xdg.nix
     ./git.nix
     ./mail.nix
@@ -20,7 +21,7 @@
     ./rbw.nix
     ./keybase.nix
     ./lf.nix
-    ./gpg.nix
+    /* ./eww */
   ];
 }
 

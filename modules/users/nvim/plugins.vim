@@ -187,6 +187,16 @@ let g:which_key_map.f = {
       \ }
 " }}}
 
+" ------ GITHUB COPILOT ------ {{{
+"Bind <Tab> (already taken by LSP)
+    let g:copilot_no_tab_map = v:true
+    imap <silent><script><expr> <C-c> copilot#Accept("\<CR>")
+
+"Change next/prev bindings
+    imap <silent> <C-]> <Plug>(copilot-next)
+    imap <silent> <C-[> <Plug>(copilot-previous)
+"}}}
+
 " ------ COLOR SCHEME ------ {{{
 "Theme settings
 let g:nord_contrast = v:true

@@ -8,9 +8,11 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nur.url = "github:nix-community/NUR";
   };
 
-  outputs = { nixpkgs, home-manager, ... }@inputs:
+  outputs = { nixpkgs, home-manager, nur, ... }@inputs:
     let
       inherit (nixpkgs) lib;
 
@@ -24,7 +26,9 @@
       pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree = true;
-        overlays = [ ];
+        overlays = [
+            nur.overlay
+        ];
       };
 
       system = "x86_64-linux";

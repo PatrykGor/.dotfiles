@@ -5,12 +5,13 @@ capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 local lspconfig = require('lspconfig')
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-local servers = { 'clangd', 'cssls', 'diagnosticls', 'eslint', 'html', 'intelephense',
+local servers = { 'clangd', 'cssls', 'diagnosticls', 'eslint', 'tsserver', 'html', 'intelephense',
                   'jedi_language_server', 'jsonls', 'rnix', 'sqls', 'vimls'}
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     -- on_attach = my_custom_on_attach,
     capabilities = capabilities,
+    -- root_dir = root_pattern(".git", ".root")
   }
 end
 

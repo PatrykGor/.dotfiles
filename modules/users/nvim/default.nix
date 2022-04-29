@@ -64,9 +64,11 @@ with lib;
         nodePackages.diagnostic-languageserver
         nodePackages.intelephense
         nodePackages.vim-language-server
+        nodePackages.typescript-language-server
         python39Packages.jedi-language-server
         sqls
         omnisharp-roslyn
+        sumneko-lua-language-server
 
         #telescope
         fd
@@ -108,6 +110,7 @@ with lib;
         lualine-nvim
         indent-blankline-nvim
         vim-which-key
+        vim-hexokinase
 
         #git integration:
         vim-gitgutter
@@ -126,6 +129,10 @@ with lib;
         cmp-nvim-lsp
         cmp_luasnip
         luasnip
+        nvim-jdtls
+
+        #Github copilot
+        copilot-vim
 
         /* #school: */
         /* coc-nvim */
