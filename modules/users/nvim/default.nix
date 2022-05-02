@@ -69,6 +69,7 @@ with lib;
         sqls
         omnisharp-roslyn
         sumneko-lua-language-server
+        nur.repos.mrcpkgs.eclipse-jdt-language-server
 
         #telescope
         fd
@@ -183,6 +184,12 @@ with lib;
         vim-commentary
         lightspeed-nvim
       ];
+    };
+
+    xdg.configFile.ftplugins = {
+        source = ./ftplugin;
+        target = "nvim/ftplugin";
+        recursive = true;
     };
   };
 }

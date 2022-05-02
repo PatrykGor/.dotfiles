@@ -44,7 +44,6 @@ with lib;
       ffmpeg
       mtpfs
       playerctl
-      nur.repos.mrcpkgs.eclipse-jdt-language-server
 
       # Fonts
       (nerdfonts.override { fonts = [ "FiraCode" "DejaVuSansMono" ]; })
