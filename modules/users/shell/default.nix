@@ -18,7 +18,7 @@ with lib;
       enable = true;
       enableAutosuggestions = true;
       enableCompletion = true;
-      # enableSyntaxHighlighting = true;
+      enableSyntaxHighlighting = true;
       enableVteIntegration = true;
       autocd = true;
       defaultKeymap = "viins";
