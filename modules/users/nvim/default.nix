@@ -70,6 +70,7 @@ with lib;
         omnisharp-roslyn
         sumneko-lua-language-server
         nur.repos.mrcpkgs.eclipse-jdt-language-server
+        nodePackages.svelte-language-server
 
         #telescope
         fd

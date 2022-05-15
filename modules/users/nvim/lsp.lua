@@ -6,7 +6,7 @@ local lspconfig = require('lspconfig')
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
 local servers = { 'clangd', 'cssls', 'diagnosticls', 'eslint', 'tsserver', 'html', 'intelephense',
-                  'jedi_language_server', 'jsonls', 'rnix', 'sqls', 'vimls'}
+                  'jedi_language_server', 'jsonls', 'rnix', 'sqls', 'vimls', 'svelte'}
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     -- on_attach = my_custom_on_attach,
