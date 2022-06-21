@@ -39,6 +39,7 @@ with lib;
       trash-cli
       rmtrash
       jq
+      fzy
       fuse
       wmctrl
       ffmpeg

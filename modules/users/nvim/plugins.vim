@@ -21,10 +21,10 @@ let g:which_key_map.w = {
       \ 'j' : ['<C-w>j'     , 'window-below']          ,
       \ 'k' : ['<C-w>k'     , 'window-up']             ,
       \ 'l' : ['<C-w>l'     , 'window-right']          ,
-      \ 'H' : [':set nosplitright | vsplit'    , 'window-split-left']    ,
-      \ 'J' : [':set splitbelow | split'  , 'window-split-below']   ,
-      \ 'K' : [':set nosplitbelow | split'  , 'window-split-up']      ,
-      \ 'L' : [':set splitright | vsplit'    , 'window-split-right']   ,
+      \ 'H' : [':set nosplitright | vsplit | VinegarTree'    , 'window-split-left']    ,
+      \ 'J' : [':set splitbelow | split | VinegarTree'  , 'window-split-below']   ,
+      \ 'K' : [':set nosplitbelow | split | VinegarTree'  , 'window-split-up']      ,
+      \ 'L' : [':set splitright | vsplit | VinegarTree'    , 'window-split-right']   ,
       \ 'q' : ['<C-w>q'    , 'window-close']   ,
       \ 'i' : 'which_key_ignore'   ,
       \ 's' : 'which_key_ignore'   ,
@@ -56,13 +56,13 @@ let g:which_key_map.d = {
       \ 'c' : 'document-clear-screenshots'             ,
       \ }
 
-
 " Move between tabs
 let g:which_key_map.t = {
       \ 'name' : '+tabs' ,
-      \ 'J' : ['gT', 'tab-previous']           ,
-      \ 'K' : ['gt', 'tab-next']           ,
+      \ 'n' : [':tabedit % | VinegarTree', 'tab-new']           ,
       \ 'q' : [':tabclose', 'tab-close']           ,
+      \ 'j' : ['gT', 'tab-previous']           ,
+      \ 'k' : ['gt', 'tab-next']           ,
       \ '1' : ['1gt', 'tab-1']           ,
       \ '2' : ['2gt', 'tab-2']           ,
       \ '3' : ['3gt', 'tab-3']           ,
@@ -128,22 +128,15 @@ let g:which_key_map.g = {
       \ }
 " }}}
 
-" ------ GITGUTTER ------ {{{
+" ------ GITSIGNS ------ {{{
 "Mappings
 let g:which_key_map.g.h = {
       \ 'name' : '+hunk' ,
-      \ 'p' : ['<Plug>(GitGutterPreviewHunk)'     , 'hunk-preview']           ,
-      \ 's' : ['<Plug>(GitGutterStageHunk)'     , 'hunk-stage']          ,
-      \ 'u' : ['<Plug>(GitGutterUndoHunk)'     , 'hunk-undo']             ,
+      \ 'p' : [':Gitsigns preview_hunk'     , 'git-hunk-preview']           ,
+      \ 's' : [':Gitsigns stage_hunk'     , 'git-hunk-stage']          ,
+      \ 'u' : [':Gitsigns undo_stage_hunk'     , 'git-hunk-undo']             ,
+      \ 'b' : [':lua require"gitsigns".blame_line{full=true}'     , 'git-hunk-blame']             ,
       \ }
-" }}}
-
-" ------ ROOTER ------ {{{
-"Project patterns
-let g:rooter_patterns = ['^Projects', '.git'. '.root']
-
-"Change to file directory for non-project files
-let g:rooter_change_directory_for_non_project_files = 'current'
 " }}}
 
 " ------ GUTENTAGS ------ {{{
@@ -151,40 +144,71 @@ let g:rooter_change_directory_for_non_project_files = 'current'
 let g:gutentags_project_root = ['^Projects', '.git'. '.root']
 " }}}
 
-" ------ LF.VIM ------ {{{
-"Don't map key by default
-let g:lf_map_keys = 0
-
-"Replace netrw
-let g:lf_replace_netrw = 1
-
-"Make window full-screen
-let g:lf_width = 1.0
-let g:lf_height = 1.0
-
-"Mappings
-let g:which_key_map.t.n = [ ':LfWorkingDirectoryExistingOrNewTab', 'tab-new' ]
-" }}}
-
 " ------ TELESCOPE ------ {{{
 "Bindings
+"nnoremap : :Telescope commands<CR>
+
 let g:which_key_map.f = {
       \ 'name' : '+find' ,
       \ 'f' : [':Telescope find_files', 'find-files']           ,
       \ 'b' : [':Telescope buffers', 'find-buffers']           ,
-      \ 'c' : {
-          \ 'name' : '+code' ,
-          \ 't' : [':Telescope tags', 'find-tags']           ,
-          \ 'r' : [':Telescope lsp_references', 'code-references']           ,
-          \ 'c' : [':Telescope cheat fd', 'code-cheatsheet']           ,
-          \ 'd' : [':Telescope diagnostics', 'code-diagnostics']           ,
-      \ }           ,
+      \ 't' : [':Telescope live_grep', 'find-text']           ,
       \ 'g' : {
           \ 'name' : '+git' ,
-          \ 'c' : [':Telescope git_bcommits', 'git-commits']           ,
-          \ 'b' : [':Telescope git_branches', 'git-branches']           ,
+          \ 'c' : [':Telescope git_bcommits', 'find-git-commits']           ,
+          \ 'b' : [':Telescope git_branches', 'find-git-branches']           ,
       \ }
       \ }
+" }}}
+
+" ------ BUFFERLINE ------ {{{
+let g:which_key_map.b = {
+      \ 'name' : '+buffers' ,
+      \ 'n' : [':enew', 'buffer-new']           ,
+      \ 'q' : [':bd', 'buffer-close']           ,
+      \ 'j' : [':BufferLineCyclePrev', 'buffer-previous']           ,
+      \ 'k' : [':BufferLineCycleNext', 'buffer-next']           ,
+      \ 'J' : [':BufferLineMovePrev', 'buffer-swap-previous']           ,
+      \ 'K' : [':BufferLineMoveNext', 'buffer-swap-next']           ,
+      \ '1' : [':BufferLineGoToBuffer 1', 'buffer-1']           ,
+      \ '2' : [':BufferLineGoToBuffer 2', 'buffer-2']           ,
+      \ '3' : [':BufferLineGoToBuffer 3', 'buffer-3']           ,
+      \ '4' : [':BufferLineGoToBuffer 4', 'buffer-4']           ,
+      \ '5' : [':BufferLineGoToBuffer 5', 'buffer-5']           ,
+      \ '6' : [':BufferLineGoToBuffer 6', 'buffer-6']           ,
+      \ '7' : [':BufferLineGoToBuffer 7', 'buffer-7']           ,
+      \ '8' : [':BufferLineGoToBuffer 8', 'buffer-8']           ,
+      \ '9' : [':BufferLineGoToBuffer 9', 'buffer-9']           ,
+      \ }
+" }}}
+
+" ------ NVIMTREE ------ {{{
+    command VinegarTree :lua require"nvim-tree".open_replacing_current_buffer()
+
+    let g:which_key_map.e = 'explore'
+    nnoremap <leader>e :VinegarTree<CR>
+" }}}
+
+" ------ UNDOTREE ------ {{{
+    let g:which_key_map.u = 'undotree'
+    nnoremap <leader>u :UndotreeToggle<CR>
+
+    "Enable persistent undo
+    if has("persistent_undo")
+       let target_path = expand('~/.local/share/nvim/undofile')
+
+        " create the directory and any parent directories
+        " if the location does not exist.
+        if !isdirectory(target_path)
+            call mkdir(target_path, "p", 0700)
+        endif
+
+        let &undodir=target_path
+        set undofile
+    endif
+
+    "Focus automatically on toggle
+    let g:undotree_SetFocusWhenToggle = 1
 " }}}
 
 " ------ GITHUB COPILOT ------ {{{
@@ -193,8 +217,8 @@ let g:which_key_map.f = {
     imap <silent><script><expr> <C-c> copilot#Accept("\<CR>")
 
 "Change next/prev bindings
-    imap <silent> <C-]> <Plug>(copilot-next)
-    imap <silent> <C-[> <Plug>(copilot-previous)
+    " imap <silent> <C-]> <Plug>(copilot-next)
+    " imap <silent> <C-[> <Plug>(copilot-previous)
 "}}}
 
 " ------ COLOR SCHEME ------ {{{

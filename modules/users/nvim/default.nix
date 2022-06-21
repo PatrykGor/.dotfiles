@@ -5,7 +5,6 @@ with lib;
   config = {
     programs.neovim = {
       enable = true;
-      # package = pkgs.neovim-nightly;
       viAlias = true;
       vimAlias = true;
       vimdiffAlias = true;
@@ -24,12 +23,6 @@ with lib;
           lua << EOF
           ${strings.fileContents ./config.lua}
           ${strings.fileContents ./lsp.lua}
-
-          local pid = vim.fn.getpid()
-          local omnisharp_bin = "${pkgs.omnisharp-roslyn}/bin/omnisharp"
-          lspconfig['omnisharp'].setup{
-            cmd = { omnisharp_bin, "--languageserver" , "--hostPID", tostring(pid) };
-          }
           EOF
         ''
 
@@ -45,12 +38,6 @@ with lib;
           augroup END
           "}}}
         ''
-
-        # additional file dependent lua
-        ''
-          lua << EOF
-          EOF
-        ''
       ];
 
       # install needed binaries here
@@ -59,18 +46,21 @@ with lib;
         # have a look on the link below to figure out the ones for your languages
         # https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md
         rnix-lsp
-        clang-tools
-        nodePackages.vscode-langservers-extracted
-        nodePackages.diagnostic-languageserver
-        nodePackages.intelephense
-        nodePackages.vim-language-server
-        nodePackages.typescript-language-server
-        python39Packages.jedi-language-server
-        sqls
-        omnisharp-roslyn
-        sumneko-lua-language-server
-        nur.repos.mrcpkgs.eclipse-jdt-language-server
-        nodePackages.svelte-language-server
+        /* clang-tools */
+        /* nodePackages.vscode-langservers-extracted */
+        /* nodePackages.diagnostic-languageserver */
+        /* nodePackages.intelephense */
+        /* nodePackages.vim-language-server */
+        /* nodePackages.typescript-language-server */
+        /* python39Packages.jedi-language-server */
+        /* sqls */
+        /* omnisharp-roslyn */
+        /* sumneko-lua-language-server */
+        /* nur.repos.mrcpkgs.eclipse-jdt-language-server */
+        /* nodePackages.svelte-language-server */
+
+        #coc
+        watchman
 
         #telescope
         fd
@@ -82,26 +72,29 @@ with lib;
         #sqlite.lua
         sqlite
 
-        #treesitter compiler:
-        /* gcc */
+        #cool paste
+        nodePackages.quicktype
 
         # vimwiki markdown converter:
         vimwiki-markdown
       ];
 
-      /* coc = { */
-      /*   enable = true; */
-      /*   settings = { */
-      /*     languageserver = { */
-      /*       nix = { */
-      /*         command = "rnix-lsp"; */
-      /*         filetypes = [ */
-      /*           "nix" */
-      /*         ]; */
-      /*       }; */
-      /*     }; */
-      /*   }; */
-      /* }; */
+      coc = {
+        enable = true;
+        settings = {
+          preferences = {
+            useQuickfixForLocations = true;
+          };
+          languageserver = {
+            nix = {
+              command = "rnix-lsp";
+              filetypes = [
+                "nix"
+              ];
+            };
+          };
+        };
+      };
 
       plugins = with pkgs.vimPlugins; [
         #theme:
@@ -113,35 +106,37 @@ with lib;
         indent-blankline-nvim
         vim-which-key
         vim-hexokinase
+        nvim-notify
 
         #git integration:
-        vim-gitgutter
+        gitsigns-nvim
         vim-fugitive
 
         #vimwiki:
         vimwiki
 
         #files:
-        lf-vim
-        vim-floaterm
+        nvim-tree-lua
 
         #LSP:
-        nvim-lspconfig
-        nvim-cmp
-        cmp-nvim-lsp
-        cmp_luasnip
-        luasnip
-        nvim-jdtls
+        /* nvim-lspconfig */
+        /* nvim-cmp */
+        /* cmp-nvim-lsp */
+        /* cmp_luasnip */
+        /* luasnip */
+        /* vim-snippets */
+        /* nvim-jdtls */
+
 
         #Github copilot
         copilot-vim
 
-        /* #school: */
-        /* coc-nvim */
+        #school:
+        coc-nvim
         /* coc-pyright */
         /* coc-clangd */
 
-        /* #work: */
+        #work:
         /* coc-java */
         /* coc-tsserver */
         /* coc-html */
@@ -149,12 +144,12 @@ with lib;
         /* coc-css */
         /* coc-json */
 
-        /* #rest: */
+        #rest:
         /* coc-vimlsp */
 
-        /* #snippets */
+        #snippets
         /* coc-snippets */
-        /* vim-snippets */
+        vim-snippets
 
         #syntax highlighting
         (nvim-treesitter.withPlugins (plugins: pkgs.tree-sitter.allGrammars))
@@ -163,10 +158,10 @@ with lib;
         direnv-vim
 
         # auto bracket
-        pear-tree
+        nvim-autopairs
 
         #project management
-        vim-rooter
+        /* vim-rooter */
 
         #telescope
         plenary-nvim
@@ -174,11 +169,17 @@ with lib;
         telescope-fzy-native-nvim
         sqlite-lua
         telescope-cheat-nvim
+        telescope-coc-nvim
 
         #coding tools
         vim-gutentags
+        vim-ultest
+        bufferline-nvim
+        vim-dadbod
+        vim-dadbod-ui
 
         #utility
+        undotree
         targets-vim
         vim-repeat
         vim-surround
